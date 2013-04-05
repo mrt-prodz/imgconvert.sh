@@ -47,6 +47,9 @@ Arguments and Options
 You can set convert (imagemagick) arguments and options at the end of the command.
 For more information run: man convert
         
-        
+
+Screenshot
+----------
+![Screenshot](https://raw.github.com/mrt-prodz/imgconvert.sh/master/screenshot.png)
 
 Created by Themistokle Benetatos (http://www.mrt-prodz.com)
