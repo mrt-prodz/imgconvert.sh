@@ -191,12 +191,6 @@ function f_check_parameters () {
 		echo -e "  \e[1;33m--output\e[0m         not specified. [$msg_error]\n"
 		exit 1;
 	fi
-
-	# no output format has been set, throw error
-	if [ -z $n ]; then
-		echo -e "  \e[1;33m--name\e[0m           not specified. [$msg_error]\n"
-		exit 1;
-	fi
 }
 
 function f_convert_files() {
