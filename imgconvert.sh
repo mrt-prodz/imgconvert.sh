@@ -155,7 +155,7 @@ function f_process_args () {
 				else
 					n=$2
 					shift 2
-					echo -e "  \e[1;33m--name\e[0m           $o"
+					echo -e "  \e[1;33m--name\e[0m           $n"
 				fi
 				;;
 			*)
