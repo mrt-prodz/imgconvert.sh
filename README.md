@@ -13,7 +13,8 @@ Usage:
         ./imgconvert.sh -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION]	
         ./imgconvert.sh --source [PATH] --destination [PATH] --input [EXTENSION] --output [EXTENSION]
 
-Example:
+
+To convert all your jpg images inside your folder $HOME/Wallpaper to png and save them inside /tmp run:
 
         ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png
 	
