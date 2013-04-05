@@ -18,23 +18,33 @@ errorconvert='Cannot find or access convert from the imagemagick package.'
 msg_error="\e[1;31mERROR\e[0m"
 msg_ok="\e[1;92mOK\e[0m"
 usage="
-Usage: imgconvert -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION]
+Usage: imgconvert -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION] [EXTRAS]
 
   -h, -help             show script usage
   -s, -source           source path of folder where images are stored
                         [optional] if not specified current dir will be selected
   -d, -destination      destination path for the converted images
-                        [optional] if not specified current dir will be selected
+                        [optional] if not specified source dir will be selected
   -i, -input            input image format to convert
   -o, -output           output image format to save as
+
+Example: ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png
   
+To convert all your png images inside your folder $HOME/icons to xbm while
+keeping transparency, you can add convert specific arguments/options at the end
+of the command like the following:
+
+./imgconvert.sh -s ~/icons -i png -o xbm -background white -alpha Background
+
+For more information about convert arguments/options run: \$man convert
 "
 
 # global variables - source destination input output
-s=''
-d=''
-i=''
-o=''
+s='' # source
+d='' # destination
+i='' # input
+o='' # output
+e='' # extra argument/option for imagemagick
 
 # checking for dependencies
 if ! which "convert" &>/dev/null; then
@@ -94,19 +104,17 @@ function f_process_args () {
 			-d | --destination)
 				# check if argument is valid
 				if [[ $2 == -* ]] || [ -z $2 ]; then
+					# if destination has no option let f_check_parameters assign source to it
 					shift 1
-					d=$(pwd)
-					printf '  \e[1;33m--destination\e[0m    not specified, using current: %s' "$d"
 				else
 					d=$2
 					# check if path ends with / if not add it
 					[[ $d != */ ]] && d="$d"/
 					shift 2
 					printf '  \e[1;33m--destination\e[0m    %s' "$d"
+					# check if folder exists for writing
+					checkDir "$d" "write"
 				fi
-
-				# check if folder exists for writing
-				checkDir "$d" "write"
 				;;
 			-i | --input)
 				# check if argument is valid
@@ -131,9 +139,9 @@ function f_process_args () {
 				fi
 				;;
 			*)
-				# other options are not supported
-				printf '\n  error: %s invalid argument.\n' "$1"
-				exit 1
+				# other options are sent to convert
+				e+="$@"
+				break
 				;;
 		esac 
 	done;
@@ -148,8 +156,8 @@ function f_check_parameters () {
 
 	# no destination has been set, use current directory
 	if [ -z $d ]; then
-		d=$(pwd)
-		printf '  \e[1;33m--destination\e[0m    not specified, using current: %s\n' "$d"
+		d="$s"
+		printf '  \e[1;33m--destination\e[0m    not specified, using source: %s\n' "$d"
 	fi
 
 	# no input format has been set, throw error
@@ -192,7 +200,7 @@ function f_convert_files() {
 					loc_progress="$loc_idx/$loc_picsnum"
 					# print pic name and convert the file
 					printf '\e[1;33mconverting\e[0m %s\n  \e[1;33mprogress\e[0m %s\r' "$pic" "$loc_progress"
-					convert $pic $d$(basename $pic .$i)."$o" >/dev/null 2>&1
+					convert $pic $e $d$(basename $pic .$i)."$o" >/dev/null 2>&1
 			done
 			echo -e "\n\nFinished.\n"
 			;;
@@ -220,4 +228,4 @@ f_process_args "$@"
 f_check_parameters
 
 # convert files
-f_convert_files
+f_convert_files "$@"

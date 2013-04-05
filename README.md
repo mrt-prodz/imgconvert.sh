@@ -1,7 +1,7 @@
 Batch Image Converter
 =====================
 
-Convert all images inside a folder into another given format.
+Convert all images inside a folder into another given format using convert from the imagemagick package.
 
 Dependencies: imagemagick
 
@@ -10,13 +10,20 @@ Usage and Example
 
 Usage:
 
-        ./imgconvert.sh -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION]	
+        ./imgconvert.sh -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION] [EXTRAS]
         ./imgconvert.sh --source [PATH] --destination [PATH] --input [EXTENSION] --output [EXTENSION]
 
 
 To convert all your jpg images inside your folder $HOME/Wallpaper to png and save them inside /tmp run:
 
         ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png
+	
+To convert all your png images inside your folder $HOME/icons to xbm while keeping transparency, you can
+add convert specific arguments/options at the end of the command like the following:
+
+        ./imgconvert.sh -s ~/icons -d /tmp -i jpg -o png -background white -alpha Background
+        
+For more information about convert arguments/options run: man convert
 	
 
 Arguments and Options
@@ -26,11 +33,13 @@ Arguments and Options
         -s, --source         source path of folder where images are stored
                              [optional] if not specified current dir will be selected
         -d, --destination    destination path for the converted images
-                             [optional] if not specified current dir will be selected
+                             [optional] if not specified source dir will be selected
         -i, --input          input image format to convert
         -o, --output         output image format to save as
+
+You can set convert (imagemagick) arguments and options at the end of the command.
+For more information run: man convert
         
         
 
 Created by Themistokle Benetatos (http://www.mrt-prodz.com)
-
