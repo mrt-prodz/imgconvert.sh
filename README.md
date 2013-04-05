@@ -20,7 +20,7 @@ To convert all your jpg images inside your folder $HOME/Wallpaper to png and sav
 	
 To convert only jpg images with a filename starting with box* and save inside /tmp run:
 
-        ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png -n box*
+        ./imgconvert.sh -s ~/Wallpaper -n box* -d /tmp -i jpg -o png
 	
 To convert all your png images inside your folder $HOME/icons to xbm while keeping transparency, you can
 add convert specific arguments/options at the end of the command like the following:
