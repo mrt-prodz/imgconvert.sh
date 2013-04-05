@@ -23,7 +23,7 @@ Usage: imgconvert -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION]
   -h, -help             show script usage
   -s, -source           source path of folder where images are stored
                         [optional] if not specified current dir will be selected
-  -d, -destination      destination path of the converted images
+  -d, -destination      destination path for the converted images
                         [optional] if not specified current dir will be selected
   -i, -input            input image format to convert
   -o, -output           output image format to save as

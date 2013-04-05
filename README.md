@@ -11,7 +11,7 @@ Usage and Example
 Usage:
 
         ./imgconvert.sh -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION]	
-        ./imgconvert.sh --source [PATH] -destination [PATH] -input [EXTENSION] -output [EXTENSION]
+        ./imgconvert.sh --source [PATH] --destination [PATH] --input [EXTENSION] --output [EXTENSION]
 
 Example:
 
