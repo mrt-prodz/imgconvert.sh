@@ -18,7 +18,7 @@ To convert all your jpg images inside your folder $HOME/Wallpaper to png and sav
 
         ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png
 	
-To convert only jpg images with a filename starting with box* inside /tmp run:
+To convert only jpg images with a filename starting with box* and save inside /tmp run:
 
         ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png -n box*
 	
@@ -28,7 +28,7 @@ add convert specific arguments/options at the end of the command like the follow
         ./imgconvert.sh -s ~/icons -d /tmp -i jpg -o png -background white -alpha Background
         
 You can also use the variable $pic running inside imgconvert.sh, this is the filename of the
-current file being processed if you need it in your command.
+current file being processed if you need it in your command:
 
         ./imgconvert.sh -s ~/icons -i png -o xbm -alpha extract -negate $pic
 
