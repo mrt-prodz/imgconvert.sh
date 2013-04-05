@@ -18,7 +18,7 @@ To convert all your jpg images inside your folder $HOME/Wallpaper to png and sav
 
         ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png
 	
-To convert only jpg images with a filename starting with box\* (escape the wildcard) and save in /tmp:
+To convert only jpg images with a filename starting with box\\* (escape the wildcard) and save in /tmp:
 
         ./imgconvert.sh -s ~/Wallpaper -n box\* -d /tmp -i jpg -o png
 	
