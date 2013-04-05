@@ -20,13 +20,14 @@ msg_ok="\e[1;92mOK\e[0m"
 usage="
 Usage: imgconvert -s [PATH] -d [PATH] -i [EXTENSION] -o [EXTENSION] [EXTRAS]
 
-  -h, -help             show script usage
-  -s, -source           source path of folder where images are stored
+  -h, --help            show script usage
+  -s, --source          source path of folder where images are stored
                         [optional] if not specified current dir will be selected
-  -d, -destination      destination path for the converted images
+  -d, --destination     destination path for the converted images
                         [optional] if not specified source dir will be selected
-  -i, -input            input image format to convert
-  -o, -output           output image format to save as
+  -i, --input           input image format to convert
+  -o, --output          output image format to save as
+  -n, --name            name filter for source files
 
 Example: ./imgconvert.sh -s ~/Wallpaper -d /tmp -i jpg -o png
   
@@ -52,6 +53,7 @@ d='' # destination
 i='' # input
 o='' # output
 e='' # extra argument/option for imagemagick
+n='' # specify name for source files: box* will select all files named box*
 
 # checking for dependencies
 if ! which "convert" &>/dev/null; then
@@ -145,6 +147,17 @@ function f_process_args () {
 					echo -e "  \e[1;33m--output\e[0m         $o"
 				fi
 				;;
+			-n | --name)
+				# check if argument is valid
+				if [[ $2 == -* ]] || [ -z $2 ]; then
+					echo -e "  \e[1;33m--name\e[0m           [$msg_error] - not specified."
+					exit 1
+				else
+					n=$2
+					shift 2
+					echo -e "  \e[1;33m--name\e[0m           $o"
+				fi
+				;;
 			*)
 				# other options are sent to convert
 				e+="$@"
@@ -178,12 +191,18 @@ function f_check_parameters () {
 		echo -e "  \e[1;33m--output\e[0m         not specified. [$msg_error]\n"
 		exit 1;
 	fi
+
+	# no output format has been set, throw error
+	if [ -z $n ]; then
+		echo -e "  \e[1;33m--name\e[0m           not specified. [$msg_error]\n"
+		exit 1;
+	fi
 }
 
 function f_convert_files() {
 	echo
 	# save all images with specific format in a variable
-	local loc_pics=$(ls $s*.$i 2>/dev/null)
+	local loc_pics=$(ls $s$n*.$i 2>/dev/null)
 	# check if pics list is empty
 	if [ -z "$loc_pics" ]; then
 		echo -e "No $i files were found.\n"
