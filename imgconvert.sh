@@ -228,4 +228,4 @@ f_process_args "$@"
 f_check_parameters
 
 # convert files
-f_convert_files "$@"
+f_convert_files
