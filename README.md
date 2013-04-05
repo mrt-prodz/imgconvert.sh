@@ -23,8 +23,8 @@ add convert specific arguments/options at the end of the command like the follow
 
         ./imgconvert.sh -s ~/icons -d /tmp -i jpg -o png -background white -alpha Background
         
-You can also use the global $pic running inside imgconvert.sh, this is the filename of the current file
-being processed if you need it in your command.
+You can also use the variable $pic running inside imgconvert.sh, this is the filename of the
+current file being processed if you need it in your command.
 
         ./imgconvert.sh -s ~/icons -i png -o xbm -alpha extract -negate $pic
 
